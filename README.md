@@ -16,3 +16,22 @@ A minimal web scraping service using FastAPI.
 
 POST /scrape
 Body: { "url": "https://...", "max_length": 1000 }
+
+## Architecture
+
+![Architecture](docs/architecture.png)
+
+<details>
+<summary>Mermaid source</summary>
+
+```mermaid
+flowchart LR
+    A[Client] -->|POST /scrape| B[FastAPI Server]
+    B -->|httpx GET| C[Target URL]
+    C -->|HTML| B
+    B -->|extract_text| D[Text Processing]
+    D -->|Clean Text| E[JSON Response]
+    E -->|200 OK| A
+```
+
+</details>
